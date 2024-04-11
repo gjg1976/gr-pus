@@ -1,0 +1,42 @@
+id: pus_ServicesPool
+label: PUS Services Pool
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.ServicesPool(${services_list})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/ServicesPool.h>']
+  declarations: 'gr::pus::ServicesPool::sptr ${services_list};'
+  make: |-
+    this->${id} = gr::pus::ServicesPool::make(
+            ${services_list});
+  link: ['gr::pus']
+        
+parameters:
+-   id: services_list
+    label: Services list
+    dtype: int_vector
+    hide: none
+    
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: error
+    optional: true  
+-   domain: message
+    id: out
+    multiplicity: ${ len(services_list) }
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true  
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

@@ -1,0 +1,31 @@
+id: pus_MessageConfig
+label: PUS Messages Config
+category: '[Packet Utilization Service]/Config'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.MessageConfig(${apid}, ${crc_enable})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/MessageConfig.h>']
+  declarations: 'gr::pus::MessageConfig::sptr ;'
+  make: |-
+    this->${id} = gr::pus::MessageConfig::make(${apid}, ${crc_enable});
+  link: ['gr::pus']
+  
+parameters:
+- id: apid
+  label: APID
+  dtype: int
+  default: 0x17
+- id: crc_enable
+  label: Reports CRC?
+  dtype: bool
+  default: 'False'
+  options: ['False', 'True']
+  option_labels: ['No', 'Yes']
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

@@ -1,0 +1,39 @@
+id: pus_FileManagementService
+label: ST[23] PUS File Management Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.FileManagementService(${homePath})
+
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/FileManagementService.h>']
+  declarations: 'gr::pus::FileManagementService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::FileManagementService::make(${homePath});
+  link: ['gr::pus']
+  
+parameters:
+-   id: homePath
+    label: Home path
+    dtype: string
+    default: './'
+            
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true  
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

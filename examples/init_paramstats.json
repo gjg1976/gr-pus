@@ -1,0 +1,13 @@
+{
+    "periodicEnabled" : true,
+    "statistics": [
+        {
+            "id": 1,
+            "interval": 10
+        },
+        {
+            "id": 9,
+            "interval": 5
+        }
+    ]
+}

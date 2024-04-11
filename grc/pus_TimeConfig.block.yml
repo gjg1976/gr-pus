@@ -1,0 +1,52 @@
+id: pus_TimeConfig
+label: PUS Time Config
+category: '[Packet Utilization Service]/Config'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.TimeConfig(${timer_resolution}, ${mode}, ${p_field}, ${epoch_year}, ${epoch_month}, ${epoch_day})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/TimeConfig.h>']
+  declarations: 'gr::pus::TimeConfig::sptr ;'
+  make: |-
+    this->${id} = gr::pus::TimeConfig::make(${mode}, ${p_field}, ${epoch_year}, ${epoch_month}, ${epoch_day});
+  link: ['gr::pus']
+  
+parameters:
+- id: timer_resolution
+  label: Timer resolution
+  dtype: float
+  default: 1.0
+- id: mode
+  label: Mode
+  dtype: byte
+  options: [1, 2, 4]
+  option_labels: ["CUC 1", "CUC 2", "CDS"]
+  default: 1
+- id: p_field
+  label: P-Field?
+  dtype: bool
+  default: 'False'
+  options: ['False', 'True']
+  option_labels: ['No', 'Yes']  
+- id: epoch_year
+  label: Epoch year
+  dtype: int
+  default: 1986
+  hide: ${ ('all' if mode != 2 else 'none') }  
+- id: epoch_month
+  label: Epoch month
+  dtype: byte
+  default: 1
+  hide: ${ ('all' if mode != 2 else 'none') }   
+- id: epoch_day
+  label: Epoch day
+  dtype: byte
+  default: 6
+  hide: ${ ('all' if mode != 2 else 'none') }   
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

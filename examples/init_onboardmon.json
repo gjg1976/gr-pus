@@ -1,0 +1,86 @@
+{
+    "enabled" : true,
+    "maxTransRepDelay" : 300,
+    "monitor": [
+        {
+            "pmonId": 2,
+            "paramId": 1,
+            "monInterval" : 10,
+            "repetitionNumber": 10,
+            "monitoringEnabled": false,
+            "definition": [
+                {
+                    "type": "ValueCheck",
+                    "maskValue": 255,
+                    "expectedValue": 10,
+                    "unexpectedRID": 1
+                }
+            ]
+        },
+        {
+            "pmonId": 3,
+            "paramId": 1,
+            "monInterval" : 20,
+            "repetitionNumber": 10,
+            "monitoringEnabled": false,
+            "definition": [
+                {
+                    "type": "LimitCheck",
+                    "lowLimit": 10,
+                    "belowLowLimitRID": 1,
+                    "highLimit": 15,
+                    "aboveHighLimitRID": 2
+                }
+            ]
+        },
+        {
+            "pmonId": 5,
+            "paramId": 5,
+            "monInterval" : 10,
+            "repetitionNumber": 5,
+            "monitoringEnabled": true,
+            "definition": [
+                {
+                    "type": "DeltaCheck",
+                    "lowDeltaThreshold": -34.5,
+                    "belowLowThresholdRID": 7,
+                    "highDeltaThreshold": 17.8,
+                    "aboveHighThresholdRID": 6,
+                    "deltaRepetition": 3
+                }
+            ]
+        },
+        {
+            "pmonId": 6,
+            "paramId": 5,
+            "monInterval" : 10,
+            "repetitionNumber": 5,
+            "monitoringEnabled": true,
+            "definition": [
+                {
+                    "type": "LimitCheck",
+                    "lowLimit":  -40,
+                    "belowLowLimitRID": 7,
+                    "highLimit": 17.8,
+                    "aboveHighLimitRID": 6
+                }
+            ]
+        },
+        {
+            "pmonId": 34,        
+            "paramId": 34,
+            "monInterval" : 10,
+            "repetitionNumber": 5,
+            "monitoringEnabled": true,
+            "definition": [
+                {
+                    "type": "LimitCheck",
+                    "lowLimit": -10,
+                    "belowLowLimitRID": 15,
+                    "highLimit": 15,
+                    "aboveHighLimitRID": 25
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "parameters": [
+        {
+            "id": 1,
+            "type": "uint8",
+            "default": 8
+        },
+        {
+            "id": 2,
+            "type": "sint16",
+            "default": -23243
+        },
+        {
+            "id": 3,
+            "type": "uint8",
+            "default": 243
+        },
+        {
+            "id": 4,
+            "type": "bool",
+            "default": false
+        },
+        {
+            "id": 5,
+            "type": "double",
+            "default": 45.2
+        },
+        {
+            "id": 9,
+            "type": "float",
+            "default":32.5
+        },
+        {
+            "id": 11,
+            "type": "bool",
+            "default": true
+        },
+        {
+            "id": 15,
+            "type": "bool",
+            "default": false
+        },
+        {
+            "id": 16,
+            "type": "uint32",
+            "default": 12324565565
+        },
+        {
+            "id": 17,
+            "type": "uint32",
+            "default": 12324565565
+        },
+        {
+            "id": 22,
+            "type": "sint8",
+            "default": -65
+        },
+        {
+            "id": 23,
+            "type": "uint8",
+            "default": 23
+        },
+        {
+            "id": 31,
+            "type": "uint8",
+            "default": 65
+        },
+        {
+            "id": 32,
+            "type": "uint16",
+            "default": 1345
+        },
+        {
+            "id": 34,
+            "type": "sint16",
+            "default": -78
+        },
+        {
+            "id": 49,
+            "type": "uint16",
+            "default": 154
+        },
+        {
+            "id": 65,
+            "type": "sint16",
+            "default": 78
+        },
+        {
+            "id": 98,
+            "type": "float",
+            "default": 1243.5
+        },
+        {
+            "id": 127,
+            "type": "uint32",
+            "default": 324362
+        },
+        {
+            "id": 128,
+            "type": "uint16",
+            "default": 4345
+        }
+    ]
+}

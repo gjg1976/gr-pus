@@ -1,0 +1,16 @@
+{
+    "sequenceStores": [
+        {
+            	"name": "TestSeq#1",
+            	"seqFile": "./init_reqseq1.json"
+        },
+        {
+            	"name": "TestSeq#2",
+            	"seqFile": "./init_reqseq2.json"
+        },
+        {
+            	"name": "TestSeq#3",
+            	"seqFile": "./init_reqseq3.json"
+        }
+    ]
+}

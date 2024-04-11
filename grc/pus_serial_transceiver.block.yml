@@ -1,0 +1,54 @@
+id: pus_serial_transceiver
+label: Serial Transceiver
+category: '[Packet Utilization Service]/Helpers'
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.serial_transceiver(${serial_port}, ${serial_baud}, ${serial_data_bits}, ${serial_parity}, ${serial_stop_bits}, ${depth})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+-   id: serial_port
+    label: Serial Port
+    dtype: string
+    default: '/dev/ttyS0'
+-   id: serial_baud
+    label: Serial Baud
+    dtype: int
+    default: 115200
+-   id: serial_data_bits
+    label: Serial Data Bits
+    dtype: int
+    default: 8
+-   id: serial_parity
+    label: Serial Parity
+    dtype: string
+    default: 'N'
+-   id: serial_stop_bits
+    label: Serial Stop Bits
+    dtype: int
+    default: 1
+-   id: depth
+    label: Serial Depth
+    dtype: int
+    default: 2048
+    hide: partial 
+    
+inputs:
+-   domain: message
+    id: in
+    optional: true
+
+outputs:
+-   domain: message
+    id: out
+    optional: true
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

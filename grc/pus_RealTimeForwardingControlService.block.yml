@@ -1,0 +1,41 @@
+id: pus_RealTimeForwardingControlService
+label: ST[14] PUS Real Time Frw. Ctrl Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.RealTimeForwardingControlService(${forward_file})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/RealTimeForwardingControlService.h>']
+  declarations: 'gr::pus::RealTimeForwardingControlService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::RealTimeForwardingControlService::make(${forward_file});
+  link: ['gr::pus']
+  
+parameters:
+-   id: forward_file
+    label: Forward def
+    dtype: file_open
+    default: ''
+      
+inputs:
+-   domain: message
+    id: in
+-   domain: message
+    id: in_msg
+    
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true 
+-   domain: message
+    id: fwd
+    optional: true 
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

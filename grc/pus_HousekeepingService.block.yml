@@ -1,0 +1,37 @@
+id: pus_HousekeepingService
+label: ST[03] PUS Housekeeping Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.HousekeepingService(${hk_file})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/HousekeepingService.h>']
+  declarations: 'gr::pus::HousekeepingService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::HousekeepingService::make(${hk_file});
+  link: ['gr::pus']
+  
+parameters:
+-   id: hk_file
+    label: Init HK structures
+    dtype: file_open
+    default: ''
+            
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true  
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

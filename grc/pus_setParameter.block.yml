@@ -1,0 +1,40 @@
+id: pus_setParameter
+label: Set Parameter
+category: '[Packet Utilization Service]/Helpers'
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.setParameter_${type.shortform}(${parameterID})
+  callbacks:
+  - setParameterValue(${value})
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+-   id: type
+    label: Parameter Type
+    dtype: enum
+    options: [real, float, int, short, byte]
+    option_labels: [Double, Float, Int, Short, Byte]
+    option_attributes:
+        shortform: [d, f, i, s, b]
+    hide: part
+-   id: parameterID
+    label: Parameter ID
+    dtype: short
+    default: 0
+-   id: value
+    label: Value
+    dtype: ${type}
+    default: 0
+
+inputs:
+
+outputs:
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

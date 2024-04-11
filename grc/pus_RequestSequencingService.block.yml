@@ -1,0 +1,41 @@
+id: pus_RequestSequencingService
+label: ST[21] PUS Request Seq Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.RequestSequencingService(${stat_file})
+
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/RequestSequencingService.h>']
+  declarations: 'gr::pus::RequestSequencingService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::RequestSequencingService::make(${stat_file});
+  link: ['gr::pus']
+
+parameters:
+-   id: stat_file
+    label: Init Sequences
+    dtype: file_open
+    default: ''
+    
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: release
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true 
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

@@ -1,0 +1,41 @@
+id: pus_FunctionManagementService
+label: ST[08] PUS Function Management Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.FunctionManagementService(${func_name_size},${func_arg_size})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/FunctionManagementService.h>']
+  declarations: 'gr::pus::FunctionManagementService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::FunctionManagementService::make(${func_name_size},${func_arg_size});
+  link: ['gr::pus']
+  
+parameters:
+- id: func_name_size
+  label: Func Name Size
+  dtype: int
+  default: 32
+- id: func_arg_size
+  label: Func Args Size
+  dtype: int
+  default: 32
+           
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true 
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

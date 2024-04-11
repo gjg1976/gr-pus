@@ -1,0 +1,40 @@
+id: pus_OnBoardMonitoringService
+label: ST[12] PUS OnBoard Monitoring Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.OnBoardMonitoringService(${obmon_file})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/OnBoardMonitoringService.h>']
+  declarations: 'gr::pus::OnBoardMonitoringService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::OnBoardMonitoringService::make(${obmon_file});
+  link: ['gr::pus']
+  
+parameters:
+-   id: obmon_file
+    label: Init mon. defs
+    dtype: file_open
+    default: ''
+            
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true 
+-   domain: message
+    id: rid
+    optional: true 
+        
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

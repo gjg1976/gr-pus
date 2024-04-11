@@ -1,0 +1,40 @@
+id: pus_pdu_vector_source_x
+label: PDU Vector Source
+category: '[Packet Utilization Service]/Helpers'
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.pdu_vector_source_${type.shortform}(${vector})
+
+#  Make one 'parameters' list entry for every parameter you want settable from the GUI.
+#     Keys include:
+#     * id (makes the value accessible as keyname, e.g. in the make entry)
+#     * label (label shown in the GUI)
+#     * dtype (e.g. int, float, complex, byte, short, xxx_vector, ...)
+#     * default
+parameters:
+-   id: type
+    label: PDU Type
+    dtype: enum
+    options: [complex, float, int, short, byte]
+    option_labels: [Complex, Float, Int, Short, Byte]
+    option_attributes:
+        shortform: [c, f, i, s, b]
+    hide: part
+-   id: vector
+    label: Vector
+    dtype: raw
+    default: (0, 0, 0)
+
+inputs:
+-   domain: message
+    id: trg
+    optional: true
+
+outputs:
+-   domain: message
+    id: pdu_out
+    optional: true
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

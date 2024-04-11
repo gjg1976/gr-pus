@@ -1,0 +1,32 @@
+{
+    "events": [
+        {
+            "id": 0,
+            "enabled": true
+        },
+        {
+            "id": 1,
+            "enabled": false
+        },
+        {
+            "id": 2,
+            "enabled": false
+        },
+        {
+            "id": 3,
+            "enabled": false
+        },
+        {
+            "id": 4,
+            "enabled": true
+        },
+        {
+            "id": 5,
+            "enabled": true
+        },
+        {
+            "id": 6,
+            "enabled": true
+        }
+    ]
+}

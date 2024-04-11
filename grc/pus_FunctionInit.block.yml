@@ -1,0 +1,25 @@
+id: pus_FunctionInit
+label: PUS Function Init
+category: '[Packet Utilization Service]/Config'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.FunctionInit(${func_name_size})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/FunctionInit.h>']
+  declarations: 'gr::pus::FunctionInit::sptr ;'
+  make: |-
+    this->${id} = gr::pus::FunctionInit::make(${func_name_size});
+  link: ['gr::pus']
+  
+parameters:
+- id: func_name_size
+  label: Func Name Size
+  dtype: int
+  default: 32
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

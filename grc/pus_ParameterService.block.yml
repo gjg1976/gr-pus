@@ -1,0 +1,33 @@
+id: pus_ParameterService
+label: ST[20] PUS Parameter Service 
+category: '[Packet Utilization Service]/Services'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.ParameterService()
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/ParameterService.h>']
+  declarations: 'gr::pus::ParameterService::sptr ;'
+  make: |-
+    this->${id} = gr::pus::ParameterService::make();
+  link: ['gr::pus']
+  
+parameters:
+        
+inputs:
+-   domain: message
+    id: in
+
+outputs:
+-   domain: message
+    id: out
+    optional: true  
+-   domain: message
+    id: ver
+    optional: true  
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

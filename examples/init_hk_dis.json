@@ -1,0 +1,57 @@
+{
+    "housekeeping": [
+        {
+            "id": 1,
+            "interval": 50,
+            "periodicEnabled": false,
+            "numParams": 2,
+            "Params": [
+                3,
+                16
+            ]
+        },
+        {
+            "id": 4,
+            "interval": 50,
+            "periodicEnabled": false,
+            "numParams": 6,
+            "Params": [
+                5,
+                1,
+                16,
+                34,
+                11,
+                31
+            ],
+            "SuperArrays": [
+                {
+                    "superRepetition": 4,
+                    "numParams": 3,
+                    "Params": [
+                        17,
+                        9,
+                        3
+                    ]
+                },
+                {
+                    "superRepetition": 5,
+                    "numParams": 1,
+                    "Params": [
+                        15
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 7,
+            "interval": 80,
+            "periodicEnabled": false,
+            "numParams": 3,
+            "Params": [
+                65,
+                49,
+                98
+            ]
+        }        
+    ]
+}

@@ -1,0 +1,25 @@
+id: pus_ParametersInit
+label: PUS Parameters Init
+category: '[Packet Utilization Service]/Config'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.ParametersInit(${init_file})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/ParametersInit.h>']
+  declarations: 'gr::pus::ParametersInit::sptr ;'
+  make: |-
+    this->${id} = gr::pus::ParametersInit::make(${init_file});
+  link: ['gr::pus']
+  
+parameters:
+-   id: init_file
+    label: Init Parameters file
+    dtype: file_open
+    default: 
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1

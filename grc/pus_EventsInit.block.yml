@@ -1,0 +1,25 @@
+id: pus_EventsInit
+label: PUS Events Init
+category: '[Packet Utilization Service]/Config'
+flags: [pyhton, cpp]
+
+templates:
+  imports: from gnuradio import pus
+  make: pus.EventsInit(${init_file})
+
+cpp_templates:
+  includes: ['#include <gnuradio/pus/EventsInit.h>']
+  declarations: 'gr::pus::EventsInit::sptr ;'
+  make: |-
+    this->${id} = gr::pus::EventsInit::make(${init_file});
+  link: ['gr::pus']
+  
+parameters:
+-   id: init_file
+    label: Init Events file
+    dtype: file_open
+    default: 
+
+#  'file_format' specifies the version of the GRC yml format used in the file
+#  and should usually not be changed.
+file_format: 1
