@@ -24,7 +24,9 @@ sudo cmake --install build/
 Install pySerial for the serial port block helper
 
 pip3 install pyserial
+
 or
+
 sudo apt-get update -y
 sudo apt install python3-serial
 
