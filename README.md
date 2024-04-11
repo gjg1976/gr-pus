@@ -15,28 +15,30 @@ This implementation is based in the AcubaSat one (https://github.com/AcubeSAT/ec
 
 Install the Embed Template Library:
 
+```
 git clone https://github.com/ETLCPP/etl.git
 cd etl
 git checkout <targetVersion>
 cmake -B build .
 sudo cmake --install build/
+```
 
 Install pySerial for the serial port block helper
-
+```
 pip3 install pyserial
-
+```
 or
-
+```
 sudo apt-get update -y
 sudo apt install python3-serial
-
+```
 Install nlohmann for json parsing:
-
+```
 sudo apt-get update –y
 sudo apt-get install -y nlohmann-json-dev
-
+```
 Then install gr-pus:
-
+```
 git clone https://github.com/gjg/gr-pus.git
 cd gr-pus
 mkdir build 
@@ -45,3 +47,4 @@ cmake ..
 make
 sudo make install
 sudo ldconfig
+```
