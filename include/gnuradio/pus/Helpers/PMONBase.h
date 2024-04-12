@@ -22,6 +22,9 @@ namespace gr {
 
 class PMONCheck
 {
+    protected:
+     	uint8_t d_type;
+     	
     public:
 	enum CheckingStatus : uint8_t {
 		Unchecked = 1,
@@ -68,14 +71,12 @@ class PMONCheck
 	double limitCrossedValue = 0;
      
      	PMONCheck(uint8_t type, uint16_t repetitionNumber);
+     	virtual ~PMONCheck() {};
      	virtual bool Check(double parameterValue, uint16_t& RID, bool& RID_added) = 0;
       	    	
      	inline uint8_t getType() {return d_type;};
      	
      	void clearDefinitionStatus() ;
-     	
-    protected:
-     	uint8_t d_type;
 };
 
 /**
@@ -90,8 +91,9 @@ public:
 	explicit PMONExpectedValueCheck(double maskValue, double expectedValue,
 	                                uint16_t unexpectedValueEvent,
 	                                uint16_t repetitionNumber)
-	    : maskValue(maskValue), expectedValue(expectedValue), unexpectedValueEvent(unexpectedValueEvent),
-	      PMONCheck(PMONCheck::CheckType::ValueCheck, repetitionNumber){};
+	    : PMONCheck(PMONCheck::CheckType::ValueCheck, repetitionNumber), 
+	        maskValue(maskValue), expectedValue(expectedValue), 
+	        unexpectedValueEvent(unexpectedValueEvent){};
 
      	bool Check(double parameterValue, uint16_t& RID, bool& RID_added) override;
 };
@@ -109,9 +111,9 @@ public:
 	explicit PMONLimitCheck(double lowLimit, uint16_t belowLowLimitEvent, 
 				double highLimit, uint16_t aboveHighLimitEvent,
 	                                uint16_t repetitionNumber)
-	    : lowLimit(lowLimit), belowLowLimitEvent(belowLowLimitEvent), highLimit(highLimit),
-	      aboveHighLimitEvent(aboveHighLimitEvent), 
-	      PMONCheck(PMONCheck::CheckType::LimitCheck, repetitionNumber){};
+	    : PMONCheck(PMONCheck::CheckType::LimitCheck, repetitionNumber),
+	       lowLimit(lowLimit), belowLowLimitEvent(belowLowLimitEvent), highLimit(highLimit),
+	      aboveHighLimitEvent(aboveHighLimitEvent){};
 
      	bool Check(double parameterValue, uint16_t& RID, bool& RID_added) override;
 };
@@ -137,11 +139,10 @@ public:
 	                        uint16_t repetitionNumber,
 	                        uint16_t consecutiveDelta,
 	                        double startValue)
-	    : lowDeltaThreshold(lowDeltaThreshold),
+	    : PMONCheck(PMONCheck::CheckType::DeltaCheck, repetitionNumber),
+	      previousValue(startValue), lowDeltaThreshold(lowDeltaThreshold),
 	      belowLowThresholdEvent(belowLowThresholdEvent), highDeltaThreshold(highDeltaThreshold),
-	      aboveHighThresholdEvent(aboveHighThresholdEvent), consecutiveDelta(consecutiveDelta),
-	      previousValue(startValue),
-	      PMONCheck(PMONCheck::CheckType::DeltaCheck, repetitionNumber){};
+	      aboveHighThresholdEvent(aboveHighThresholdEvent), consecutiveDelta(consecutiveDelta){};
 
      	bool Check(double parameterValue, uint16_t& RID, bool& RID_added) override;
 };
@@ -153,16 +154,6 @@ public:
 	uint16_t monitoredParameterId;
 
 	ParameterPool* d_parameter_pool;
-
-	/**
-	 * The number of checks that need to be conducted in order to set a new Parameter Monitoring Status.
-	 */
-	uint16_t repetitionNumber;
-	/**
-	 * The number of checks that have been conducted so far.
-	 */
-	uint16_t repetitionCounter = 0;
-
 	/**
 	 * The number of ticks from timer before his parameter checked.
 	 */
@@ -171,7 +162,14 @@ public:
 	 * The numberof ticks that have been counter so far.
 	 */
 	uint16_t monitoringIntervalCounter = 0;
-	
+	/**
+	 * The number of checks that need to be conducted in order to set a new Parameter Monitoring Status.
+	 */
+	uint16_t repetitionNumber;
+	/**
+	 * The number of checks that have been conducted so far.
+	 */
+	uint16_t repetitionCounter = 0;
 	/**
 	 * The number of checks that need to be conducted in order to set a new Parameter Monitoring Status for delta checks.
 	 */

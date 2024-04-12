@@ -20,7 +20,7 @@
 
 template <typename T>
 inline std::vector<uint8_t> append(T& value) {
-	append(std::underlying_type_t<T>(value));
+	return append(std::underlying_type_t<T>(value));
 }
 
 template <typename T>
@@ -158,7 +158,7 @@ public:
 	inline void appendValueAsTypeToVector(double d_value, std::vector<uint8_t>& vector) override {
 		parseValue = (DataType)d_value;
 		std::vector<uint8_t> value = append<DataType>(parseValue);
-		for(int i=0; i < value.size(); i++)
+		for(size_t i=0; i < value.size(); i++)
 			vector.push_back(value[i]);
 
 	};
@@ -416,7 +416,7 @@ inline uint16_t read(std::vector<uint8_t> message) {
 	uint16_t value;
 	if (message.size() < 2)
 		return 0;
-	value = (message[0] << 8) | message[1];
+	value = ((uint16_t)message[0] << 8) | (uint16_t)message[1];
 	return value;
 }
 
@@ -425,7 +425,8 @@ inline uint32_t read(std::vector<uint8_t> message) {
 	uint32_t value;
 	if (message.size() < 4)
 		return 0;
-	value = (message[0] << 24) | (message[1] << 16) | (message[2] << 8) | message[3];
+	value = ((uint32_t)message[0] << 24) | ((uint32_t)message[1] << 16) | 
+		((uint32_t)message[2] << 8) | (uint32_t)message[3];
 	return value;
 }
 
@@ -434,8 +435,10 @@ inline uint64_t read(std::vector<uint8_t> message) {
 	uint64_t value;
 	if (message.size() < 8)
 		return 0;
-	value = (message[0] << 56) | (message[1] << 48) | (message[2] << 40) | (message[3] << 32) |
-		(message[4] << 24) | (message[5] << 16) | (message[6] << 8) | message[7];
+	value = ((uint64_t)message[0] << 56) | ((uint64_t)message[1] << 48) | 
+		((uint64_t)message[2] << 40) | ((uint64_t)message[3] << 32) |
+		((uint64_t)message[4] << 24) | ((uint64_t)message[5] << 16) | 
+		((uint64_t)message[6] << 8) | (uint64_t)message[7];
 	return value;
 }
 
@@ -453,7 +456,7 @@ inline int16_t read(std::vector<uint8_t> message) {
 	int16_t value;
 	if (message.size() < 2)
 		return 0;
-	value = (message[0] << 8) | message[1];
+	value = ((uint16_t)message[0] << 8) | (uint16_t)message[1];
 	return value;
 }
 
@@ -462,7 +465,8 @@ inline int32_t read(std::vector<uint8_t> message) {
 	int32_t value;
 	if (message.size() < 4)
 		return 0;
-	value = (message[0] << 24) | (message[1] << 16) | (message[2] << 8) | message[3];
+	value = ((uint32_t)message[0] << 24) | ((uint32_t)message[1] << 16) | 
+		((uint32_t)message[2] << 8) | (uint32_t)message[3];
 	return value;
 }
 
@@ -475,21 +479,33 @@ inline bool read(std::vector<uint8_t> message) {
 
 template <>
 inline float read(std::vector<uint8_t> message) {
-	uint32_t value;
+	static_assert(sizeof(uint32_t) == sizeof(float), "Floating point numbers must be 32 bits long");
+	uint32_t iValue;
 	if (message.size() < 4)
 		return 0;
-	value = (message[0] << 24) | (message[1] << 16) | (message[2] << 8) | message[3];
-	return reinterpret_cast<float&>(value);
+	iValue = ((uint32_t)message[0] << 24) | ((uint32_t)message[1] << 16) | 
+		((uint32_t)message[2] << 8) | (uint32_t)message[3];
+	float fValue = 0;
+		
+	std::memcpy(&fValue, &iValue, sizeof(float));
+	return fValue;
 }
 
 template <>
 inline double read(std::vector<uint8_t> message) {
-	uint64_t value;
+	static_assert(sizeof(uint64_t) == sizeof(double), "Double numbers must be 64 bits long");
+	uint64_t iValue = 0;
 	if (message.size() < 8)
 		return 0;
-	value = (message[0] << 56) | (message[1] << 48) | (message[2] << 40) | (message[3] << 32) |
-		(message[4] << 24) | (message[5] << 16) | (message[6] << 8) | message[7];
-	return reinterpret_cast<double&>(value);
+	iValue = ((uint64_t)message[0] << 56) | ((uint64_t)message[1] << 48) | 
+		((uint64_t)message[2] << 40) | ((uint64_t)message[3] << 32) |
+		((uint64_t)message[4] << 24) | ((uint64_t)message[5] << 16) | 
+		((uint64_t)message[6] << 8) | (uint64_t)message[7];
+
+	double dValue = 0;
+		
+	std::memcpy(&dValue, &iValue, sizeof(double));		
+	return dValue;
 }
   } // namespace pus
 } // namespace gr

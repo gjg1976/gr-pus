@@ -16,6 +16,7 @@
 #include <gnuradio/pus/Time/TimeGetter.h>
 #include <gnuradio/pus/Helpers/CRCHelper.h>
 #include <etl/string.h>
+#include <cstring>
 #include <iostream>
 
 /**
@@ -257,15 +258,24 @@
 	float readFloat() {
 		static_assert(sizeof(uint32_t) == sizeof(float), "Floating point numbers must be 32 bits long");
 
-		uint32_t value = readWord();
-		return reinterpret_cast<float&>(value);
+		uint32_t iValue = readWord();
+		float fValue = 0;
+		
+		std::memcpy(&fValue, &iValue, sizeof(float));
+		
+		return fValue;
 	}
 
 	double readDouble() {
 		static_assert(sizeof(uint64_t) == sizeof(double), "Double numbers must be 64 bits long");
 
-		uint64_t value = readUint64();
-		return reinterpret_cast<double&>(value);
+		uint64_t iValue = readUint64();
+		double dValue = 0;
+		
+		std::memcpy(&dValue, &iValue, sizeof(double));
+
+
+		return dValue;
 	}	
 
 	/**
@@ -548,19 +558,26 @@
 	 *
 	 * PTC = 5, PFC = 1
 	 */
-	void appendFloat(float value) {
-		static_assert(sizeof(uint32_t) == sizeof(value), "Floating point numbers must be 32 bits long");
+	void appendFloat(float fValue) {
+		static_assert(sizeof(uint32_t) == sizeof(fValue), "Floating point numbers must be 32 bits long");
 
-		return appendWord(reinterpret_cast<uint32_t&>(value));
+		uint32_t iValue = 0;
+		
+		std::memcpy(&iValue, &fValue, sizeof(float));
+
+		return appendWord(iValue);
 	}
 
 	/**
 	 * Adds a double to the end of the message
 	 */
-	void appendDouble(double value) {
-		static_assert(sizeof(uint64_t) == sizeof(value), "Double numbers must be 64 bits long");
+	void appendDouble(double dValue) {
+		static_assert(sizeof(uint64_t) == sizeof(dValue), "Double numbers must be 64 bits long");
 
-		return appendUint64(reinterpret_cast<uint64_t&>(value));
+		uint64_t iValue = 0;
+		
+		std::memcpy(&iValue, &dValue, sizeof(double));
+		return appendUint64(iValue);
 	}		
 	/**
 	 * Adds a N-byte string to the end of the message
