@@ -207,8 +207,8 @@ namespace gr {
  	uint16_t startPosition = message.getMessageReadPosition();
 	uint16_t endPosition = startPosition;
 	
-	uint16_t dummy = message.readUint16();
-	dummy = message.readUint16();
+	message.readUint16();
+	message.readUint16();
 	
 	uint16_t pkt_size = message.readUint16() & (~0xc000U);
 	

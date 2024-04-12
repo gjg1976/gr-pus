@@ -281,8 +281,8 @@ namespace gr {
 			reportAcceptanceError(request, ErrorHandler::InvalidLength);	
 			return false;
 		}	
-		uint16_t apid = request.readUint16();
-		uint16_t eventID = request.readUint16();	
+		request.readUint16();
+		request.readUint16();	
 		
 		MessageArray action_definition = d_message_parser->parseTCfromMessage(request);
 		if(tcSize < action_definition.size()){     
@@ -468,7 +468,6 @@ namespace gr {
 	bool bFaultStartExecution = false;
 
 	if (numberOfEventActionDefinitions != 0U) {
-		uint16_t j = 0;
 		while (numberOfEventActionDefinitions-- != 0) {
 			uint16_t applicationID = request.readUint16();
 			uint16_t eventDefinitionID = request.readUint16();

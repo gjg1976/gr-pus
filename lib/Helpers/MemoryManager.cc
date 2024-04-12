@@ -71,7 +71,7 @@ namespace gr {
     {
     	if (addressValidator(memoryID, startAddress) &&
 		    addressValidator(memoryID, startAddress + writeData.size())) {
-		for(int i = 0; i < writeData.size(); i++){
+		for(size_t i = 0; i < writeData.size(); i++){
 			simulatedMem[startAddress+i] = writeData[i];
 		}
 		return true;

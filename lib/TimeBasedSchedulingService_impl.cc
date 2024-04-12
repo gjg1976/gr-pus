@@ -288,7 +288,7 @@ namespace gr {
 		} 
 		tcSize -= TIME_SCH_TIME_DEF;
 		
-		uint32_t time = request.readUint32();
+		request.readUint32();
 		MessageArray message_definition = d_message_parser->parseTCfromMessage(request);
 		if(message_definition.size() == 0){
 			reportAcceptanceError(request, ErrorHandler::InvalidLength);	

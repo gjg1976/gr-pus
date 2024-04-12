@@ -84,7 +84,7 @@ namespace gr {
 		if(++currentParam.second.samplingIntervalCounter > currentParam.second.selfSamplingInterval){
 		        currentParam.second.samplingIntervalCounter = 0;
 
-			if (auto parameter = ParameterPool::getInstance()->getParameter(currentParam.first)) {
+			if (auto parameter = ParameterPool::getInstance()->getParameter(currentId)) {
 		 		currentParam.second.updateStatistics(parameter->get().getValueAsDouble());
 			}
 		}

@@ -118,8 +118,6 @@ namespace gr {
 
     void StorageAndRetrievalService_impl::run()
     {
-    	long waitTime = 0;
-
         while (!d_finished) {
             double accumulatedTimeUs = 0;
             bool nothing;
@@ -143,7 +141,7 @@ namespace gr {
 						packetStore.second.currentRetrievalStartTimeTag =
 											packet.first;						
 						
-						for (int16_t i = indexPacket; i < packetStore.second.storedTelemetryPackets.size();i++){
+						for (int16_t i = indexPacket; i < (int16_t)packetStore.second.storedTelemetryPackets.size();i++){
   							if (packetStore.second.storedTelemetryPackets[i].first == packetStore.second.currentRetrievalStartTimeTag){
 								Message message = packetStore.second.storedTelemetryPackets[i].second;
        							message_port_pub(pmt::intern("vc" + std::to_string(nOut->second)),
@@ -707,7 +705,6 @@ namespace gr {
                                                            uint32_t timestamp,
                                                            Message& tmPacket) {
 	packetStores[packetStoreId].storedTelemetryPackets.push_back({timestamp, tmPacket});
-	printf("%d Store size %d\n", timestamp, packetStores[packetStoreId].storedTelemetryPackets.size());
      }
 
      void StorageAndRetrievalService_impl::resetPacketStores() {
@@ -1073,7 +1070,7 @@ namespace gr {
 		}
 		tcSize -= (STR_RTL_APPID_SIZE + STR_RTL_NUM_SERVICES);
 		
-		uint16_t applicationID = request.readUint16();
+		request.readUint16();
 		uint16_t numOfServices = request.readUint16();
 
 		for (uint8_t currentServiceNumber = 0; currentServiceNumber < numOfServices; currentServiceNumber++) {
@@ -1082,7 +1079,7 @@ namespace gr {
 				return false;
 			}
 			tcSize -= (STR_RTL_SERVICES_SIZE + STR_RTL_NUM_SUBTYPES);
-			uint8_t serviceType = request.readUint8();
+			request.readUint8();
 			uint16_t numOfMessages = request.readUint16();
 
  			if(tcSize < (STR_RTL_SUBTYPES_SIZE * numOfMessages)){     
@@ -1349,7 +1346,6 @@ namespace gr {
 	reportSuccessAcceptanceVerification(request);
 
 	bool bFaultStartExecution = false;	
-	bool errorFlag = false;
 
 	for (uint16_t i = 0; i < numOfPacketStores; i++) {
 		auto packetStoreId = readPacketStoreId(request);

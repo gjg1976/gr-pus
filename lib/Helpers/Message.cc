@@ -121,7 +121,7 @@ MessageArray Message::readMessageArray(uint16_t size){
 uint8_t Message::readByte() {
 	uint8_t value = 0;
 	
-	if(messageReadPosition < messageArray.size() + 1){
+	if(messageReadPosition < (uint16_t)messageArray.size() + 1){
 		value = messageArray[messageReadPosition];
 		messageReadPosition += 1;
 	}
@@ -131,7 +131,7 @@ uint8_t Message::readByte() {
     uint16_t Message::readHalfword() {
 	uint16_t value = 0;
 	
-	if((messageReadPosition + 2) < messageArray.size() + 1){
+	if((messageReadPosition + 2) < (uint16_t)messageArray.size() + 1){
 		value = (messageArray[messageReadPosition] << 8) | messageArray[messageReadPosition + 1]; 
 		messageReadPosition += 2;
 	}
@@ -141,7 +141,7 @@ uint8_t Message::readByte() {
     uint32_t Message::readWord() {
 	uint32_t value = 0;
 	
-	if((messageReadPosition + 4) < messageArray.size() + 1){
+	if((messageReadPosition + 4) < (uint16_t)messageArray.size() + 1){
 		value =  (messageArray[messageReadPosition] << 24) | (messageArray[messageReadPosition + 1] << 16) |
 			 (messageArray[messageReadPosition + 2] << 8) | messageArray[messageReadPosition + 3];
 		messageReadPosition += 4;

@@ -388,7 +388,6 @@ namespace gr {
 		return;
 	}
 
- 	uint16_t currentPosition = request.getMessageReadPosition();
  	uint16_t tcSize = request.getMessageSize() - (CCSDSPrimaryHeaderSize + ECSSSecondaryTCHeaderSize + ECSSSecondaryTCCRCSize);
 
  	if(tcSize > 0){     
