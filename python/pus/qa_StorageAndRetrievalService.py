@@ -3906,7 +3906,8 @@ class qa_StorageAndRetrievalService(gr_unittest.TestCase):
         self.assertTrue(d4.num_messages() == 0)
         
         payloads = []
-
+        print(d1.num_messages())
+        print(d2.num_messages())        
         self.assertTrue(checkResults(0, d1, payloads, 3, d2, 0, testData, packet))  
 
         # ------------------------------------------------------------
