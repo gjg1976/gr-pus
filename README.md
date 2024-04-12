@@ -6,10 +6,17 @@ Additional ad-hoc (application specific) services could easily be added later as
 
 The folder docs includes a document with the description and the user manual, in addicion there is a sheet document with QA test cases tracking
 
-This implementation is based in the AcubaSat one (https://github.com/AcubeSAT/ecss-services), but adapted to GNURadio and including additional service types and message types. 
+This implementation is based in the AcubaSat one (https://github.com/AcubeSAT/ecss-services), but adapted to GNURadio and including full verification support, additional service types and message types. 
 
 
 ![Alt text](./images/schematic.png?raw=true "gr-pus schematic")
+
+Because this package is for GNURadio and Linux, it is not intented to be a "flight software" as so. The "Flight software", as any critical softare, has a set of specific requirements, but, those requirements have a clear objetive, and knowing the risks you could deviate them.
+
+I found out that for certain cases wehre the risk is very low, it is far better to use Linux as O/S in a SoC instead of RTEMS (which, by the way, the v3.10+ is not a "flight software" neither!) or Vxworks, Linux will simplified (time, money, etc) the development and testing process (no special tools, simulators, knowledge is required!). 
+
+gr-pus is aimed to such cases (ie: SDR instruments)!
+
 
 ## Installation
 
