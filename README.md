@@ -47,7 +47,8 @@ sudo apt-get update –y
 sudo apt-get install -y nlohmann-json-dev
 ```
 
-Configure the gr-pus restrains and limitations according to your needs editing the file: gr-pus/include/gnuradio/pus/Definitions/ECSS_Definitions.h
+Configure the gr-pus restrains and limitations according to your needs editing the file: 
+gr-pus/include/gnuradio/pus/Definitions/ECSS_Definitions.h
 
 And then install gr-pus:
 ```
